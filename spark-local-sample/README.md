@@ -1,3 +1,3 @@
-spark-simple-sample
+spark-local-sample
 ===============
 sbt run
