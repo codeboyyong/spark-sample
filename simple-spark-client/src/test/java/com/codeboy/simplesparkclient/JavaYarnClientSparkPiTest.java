@@ -10,23 +10,37 @@ import org.apache.hadoop.yarn.api.records.ApplicationId;
 import org.apache.spark.SparkConf;
 import org.junit.Test;
 
+/***
+ * mvn -e -Dtest=com.codeboy.simplesparkclient.JavaYarnClientSparkPiTest test
+ * @author zhaoyong
+ *
+ */
 //in the env :SPARK_JAR= /home/john/hadoop_soft/CDH5/spark-0.9.0-cdh5.0.0/spark-assembly_2.10-0.9.0-cdh5.0.0-hadoop2.3.0-cdh5.0.0.jar
-public class JavaYarnClientParkPiTest  {
-	String sparkPIJarFile ="/home/john/hadoop_soft/CDH5/spark-0.9.0-cdh5.0.0/spark-examples_2.10-0.9.0-cdh5.0.0.jar"; 
-	String yarnLogDir = "/cdh5/data/1/yarn/logs";
+public class JavaYarnClientSparkPiTest  {
+//	String sparkPIJarFile ="/home/john/hadoop_soft/CDH5/spark-0.9.0-cdh5.0.0/spark-examples_2.10-0.9.0-cdh5.0.0.jar"; 
+//	String yarnLogDir = "/cdh5/data/1/yarn/logs";
+	String sparkPIJarFile =System.getenv().get("spark_example_jar");
+	String yarnLogDir = System.getenv().get("yarn_log_dir");
 	
 	JavaYarnClient client  = new JavaYarnClient();
-//	//@Test
-//	public void testSparkPISync(){
-//
-//		JavaClientArguments arguments = creataArgumentForSparkPi();
-//		SparkConf sparkConf = client.createDefaultSparkConf() ;
-//		Configuration hadoopConfig = client.createLocalHadoopConfig();
-//		
-//		client.runSparkJobSync(sparkConf, hadoopConfig, arguments);
-//		Assert.assertTrue(true);
-//
+	
+	@Test
+//	public void testMavenEnv() {
+//		Assert.assertEquals(System.getenv().get("yarn_log_dir"),yarnLogDir) ;
 //	}
+	
+	public void testSparkPISync() throws InterruptedException{
+
+		JavaClientArguments arguments = creataArgumentForSparkPi();
+		SparkConf sparkConf = client.createDefaultSparkConf() ;
+		Configuration hadoopConfig = client.createLocalHadoopConfig();
+		
+		client.runSparkJobSync(sparkConf, hadoopConfig, arguments);
+		Assert.assertTrue(true);
+ 		 
+			Thread.sleep(1000*60);//wait to 1 minuts
+
+	}
 
 	private JavaClientArguments creataArgumentForSparkPi() {
 		JavaClientArguments arguments = new JavaClientArguments(
@@ -37,7 +51,7 @@ public class JavaYarnClientParkPiTest  {
 		return arguments;
 	}
 
-	@Test
+	
 	public void testSparkPIAsync() throws Exception{
 		JavaClientArguments arguments = creataArgumentForSparkPi();
 		SparkConf sparkConf = client.createDefaultSparkConf() ;

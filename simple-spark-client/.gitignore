@@ -10,3 +10,5 @@
 .settings
 target
 /README.md~
+/.DS_Store
+/.cache
