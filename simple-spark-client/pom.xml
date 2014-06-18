@@ -9,9 +9,14 @@
 	<properties>
 		<hadoop.version>2.3.0-cdh5.0.0</hadoop.version>
 		<spark.version>0.9.0-cdh5.0.0</spark.version>
-		<!-- #spark.cdh5=0.9.0-cdh5.0.0 #spark.apache220=0.9.0-2.2.0 #spark.apache230=0.9.0-2.3.0 
-			#spark.apache205=0.9.0-2.0.5-alpha #cdh5=2.3.0-cdh5.0.0 #apache220=2.2.0 
-			#apache230=2.3.0 #apache205=2.0.5-alpha -->
+		<!-- #spark.cdh5=0.9.0-cdh5.0.0 
+		     #spark.apache220=0.9.0-2.2.0 
+		     #spark.apache230=0.9.0-2.3.0 
+			 #spark.apache205=0.9.0-2.0.5-alpha 
+			 #cdh5=2.3.0-cdh5.0.0 
+			 #apache220=2.2.0 
+			 #apache230=2.3.0 
+			 #apache205=2.0.5-alpha -->
 
 	</properties>
 

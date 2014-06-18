@@ -7,6 +7,7 @@ import junit.framework.Assert;
 import org.apache.commons.io.FileUtils;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.yarn.api.records.ApplicationId;
+import org.apache.hadoop.yarn.conf.YarnConfiguration;
 import org.apache.spark.SparkConf;
 import org.junit.Test;
 
@@ -19,39 +20,40 @@ import org.junit.Test;
 public class JavaYarnClientSparkPiTest  {
 //	String sparkPIJarFile ="/home/john/hadoop_soft/CDH5/spark-0.9.0-cdh5.0.0/spark-examples_2.10-0.9.0-cdh5.0.0.jar"; 
 //	String yarnLogDir = "/cdh5/data/1/yarn/logs";
-	String sparkPIJarFile =System.getenv().get("spark_example_jar");
-	String yarnLogDir = System.getenv().get("yarn_log_dir");
-	
-	JavaYarnClient client  = new JavaYarnClient();
-	
+	static String sparkPIJarFile =System.getenv().get("spark_example_jar");
+	static String yarnLogDir = System.getenv().get("yarn_log_dir");
+	 	
+	static JavaYarnClient client  = new JavaYarnClient();
+ 
 	@Test
-//	public void testMavenEnv() {
-//		Assert.assertEquals(System.getenv().get("yarn_log_dir"),yarnLogDir) ;
-//	}
-	
 	public void testSparkPISync() throws InterruptedException{
 
+		System.out.println("sparkPIJarFile="+sparkPIJarFile);
+		System.out.println("yarnLogDir="+yarnLogDir);
+		
 		JavaClientArguments arguments = creataArgumentForSparkPi();
 		SparkConf sparkConf = client.createDefaultSparkConf() ;
 		Configuration hadoopConfig = client.createLocalHadoopConfig();
 		
 		client.runSparkJobSync(sparkConf, hadoopConfig, arguments);
-		Assert.assertTrue(true);
- 		 
-			Thread.sleep(1000*60);//wait to 1 minuts
+ 
+		 Thread.sleep(1000*60);//wait to 1 minuts
+		 System.out.println("testSparkPISync finished");
 
 	}
 
-	private JavaClientArguments creataArgumentForSparkPi() {
+	//yarn-standalone is in 0.9
+	//and now is  
+	private static JavaClientArguments creataArgumentForSparkPi() {
 		JavaClientArguments arguments = new JavaClientArguments(
 				sparkPIJarFile,
 				"org.apache.spark.examples.SparkPi",
-				new String[] { "yarn-standalone" }, (String[]) null,
+				new String[] { "yarn-standalone"}, (String[]) null,
 				(String[]) null, 1, "1g", "512m", 1);
 		return arguments;
 	}
 
-	
+	@Test
 	public void testSparkPIAsync() throws Exception{
 		JavaClientArguments arguments = creataArgumentForSparkPi();
 		SparkConf sparkConf = client.createDefaultSparkConf() ;
@@ -65,6 +67,7 @@ public class JavaYarnClientSparkPiTest  {
 		while (time<waitingTime){
 		
 			try {
+				
 				Thread.sleep(1000*10);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
@@ -87,4 +90,25 @@ public class JavaYarnClientSparkPiTest  {
 		}
 		
 	}
+	
+	public static void main(String args[]) {
+		System.out.println(YarnConfiguration.YARN_APPLICATION_CLASSPATH);
+		System.out.println("sparkPIJarFile="+sparkPIJarFile);
+		System.out.println("yarnLogDir="+yarnLogDir);
+		
+		JavaClientArguments arguments = creataArgumentForSparkPi();
+		SparkConf sparkConf = client.createDefaultSparkConf() ;
+		Configuration hadoopConfig = client.createLocalHadoopConfig();
+		
+		client.runSparkJobSync(sparkConf, hadoopConfig, arguments);
+		Assert.assertTrue(true);
+ 		 
+		 try {
+			Thread.sleep(1000*60);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}//wait to 1 minuts
+		 System.out.println("testSparkPISync finished");
+	} 
 }
