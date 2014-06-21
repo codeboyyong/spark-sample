@@ -6,7 +6,7 @@ import java.util.List;
  
 
 public class JavaClientArguments {
-	/*
+	/* 
 	 * "--jar",
 	 * "/home/john/hadoop_soft/CDH5/spark-0.9.0-cdh5.0.0/spark-examples_2.10-0.9.0-cdh5.0.0.jar"
 	 * , "--class", "org.apache.spark.examples.SparkPi", "--args",
@@ -51,6 +51,7 @@ public class JavaClientArguments {
 			for(String str:stringArr){
 				sb.append(str).append(",");
 			}
+			sb.deleteCharAt(sb.length()-1);
 		}
 		return sb.toString();
 	}

@@ -17,7 +17,7 @@ public class JavaYarnClient {
 
 	public ApplicationId runSparkJobAsync(SparkConf sparkConf,
 			Configuration hadoopConfig, JavaClientArguments arguments) throws IOException {
-		System.setProperty("SPARK_YARN_MODE", "true");
+		 
 		ApplicationId appID = new org.apache.spark.deploy.yarn.Client(new ClientArguments(
 				arguments.toArgumentStringArray(), sparkConf), hadoopConfig,
 				sparkConf).runApp();
@@ -26,7 +26,7 @@ public class JavaYarnClient {
 	}
 	public void runSparkJobSync(SparkConf sparkConf,
 			Configuration hadoopConfig, JavaClientArguments arguments) {
-		System.setProperty("SPARK_YARN_MODE", "true");
+		 
 		System.out.println(System.currentTimeMillis() +": start runApp");
 
 		 new org.apache.spark.deploy.yarn.Client(new ClientArguments(

@@ -1,1 +1,0 @@
-mvn -e -Dtest=com.codeboy.simplesparkclient.JavaYarnClientSparkPiTest -Dyarn_log_dir=/cdh5/data/1/yarn/logs -Dspark_example_jar=/Users/zhaoyong/git/codeboyyong/spark//examples/target/scala-2.10/spark-examples-assembly-0.9.2-SNAPSHOT.jar test
