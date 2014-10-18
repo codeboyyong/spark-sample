@@ -19,6 +19,6 @@ object SimpleSampleApp {
     val numAs = myData.filter(line => line.contains("a")).count()
     val numBs = myData.filter(line => line.contains("b")).count()
     println("Lines with a: %s, Lines with b: %s".format(numAs, numBs))
-    
+    sc.stop()
   }
 }
