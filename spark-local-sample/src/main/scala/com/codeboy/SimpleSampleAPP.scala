@@ -15,6 +15,12 @@ object SimpleSampleApp {
          //, "YOUR_SPARK_HOME"
        // ,List("target/scala-2.10/spark-local-sample_2.10-1.0.jar")
       )
+    /***
+     *  From spark demo, itself
+     *  
+     *  val conf = new SparkConf().setAppName("Simple Application")
+   		val sc = new SparkContext(conf)
+     */
     val myData = sc.textFile(myFile, 2).cache()
     val numAs = myData.filter(line => line.contains("a")).count()
     val numBs = myData.filter(line => line.contains("b")).count()

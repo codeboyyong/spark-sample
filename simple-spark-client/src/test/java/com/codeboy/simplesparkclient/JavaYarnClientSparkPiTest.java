@@ -106,8 +106,7 @@ public class JavaYarnClientSparkPiTest  {
 		 try {
 			Thread.sleep(1000*60);
 		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+ 			e.printStackTrace();
 		}//wait to 1 minuts
 		 System.out.println("testSparkPISync finished");
 	} 
